@@ -1,0 +1,42 @@
+Implementing Flight Booking Feature ~ Putting new Date & Time API into practice!
+Let's assume that we have the task of implementing 'Flight Booking' feature for a fictitious Website called 'eazyfly'. For this exercise, let's assume the goal is to implement one-way search of flights between two places (cities in two countries) given the date of travel. User is also allowed to specify a time interval (e.g., 9 AM - 1 PM) within which the flights should depart. Let's also assume that there would be one connecting flight. 
+
+Let's look at an example to get a better understanding of the problem. Let's say user wants to travel from San Francisco (USA) to Mumbai (India) via a connecting flight in Dubai on December 20th, 2017 and wants the system to show only flights departing in San Francisco between 9 AM and 1 PM. Let's say we have a total of following 15 flights available in the system on December 20th, 2017. For the sake of simplicity, let's assume departure time & arrival time are same including dates (can be possible due to different time zones)
+
+1. New York --> Dubai. Departure Time: 9 AM, Arrival Time: 9 AM (It means flight departs in New York at 9 am and arrives in Dubai at 9 am)
+
+2. San Francisco --> Paris. Departure Time: 9 AM, Arrival Time: 9 AM
+
+3. San Francisco --> Rome. Departure Time: 9 AM, Arrival Time: 9 AM
+
+4. San Francisco --> Dubai. Departure Time: 8 AM, Arrival Time: 8 AM
+
+5. San Francisco --> Dubai. Departure Time: 9:30 AM, Arrival Time: 9:30 AM
+
+6. San Francisco --> Dubai. Departure Time: 11:30 AM, Arrival Time: 11:30 AM
+
+7. San Francisco --> Dubai. Departure Time: 12:30 PM, Arrival Time: 12:30 PM
+
+8. San Francisco --> Dubai. Departure Time: 4 PM, Arrival Time: 4 PM
+
+9. Paris --> New Delhi. Departure Time: 9 AM, Arrival Time: 9 AM
+
+10. Dubai --> Singapore. Departure Time: 9 AM, Arrival Time: 9 AM
+
+11. Dubai --> Mumbai. Departure Time: 9:30 AM, Arrival Time: 9:30 AM
+
+12. Dubai --> Mumbai. Departure Time: 10:30 AM, Arrival Time: 10:30 AM
+
+13. Dubai --> Mumbai. Departure Time: 12 PM, Arrival Time: 12 PM
+
+14. Dubai --> Mumbai. Departure Time: 2 PM, Arrival Time: 2 PM
+
+15. Rome --> Mumbai. Departure Time: 2 PM, Arrival Time: 2 PM   
+
+For the User's search criteria, for the route San Francisco to Dubai, the system would select the flights with sequence #'s [5, 6, 7] above as departure preference time is 9 AM - 1 PM. So, [4, 8] are left out although they travel from San Francisco to Dubai. For the Dubai to Mumbai leg, we want to show only those connecting flights that depart at least two hours after the first arriving flight from the selected list of flights from San Francisco-Dubai, i.e., at least two hours after the San Francisco-Dubai flight that is arriving first at 9:30 AM (the one with sequence # 5). That would give the user enough time to board the connecting flight. Due to this constraint, only connecting flights corresponding to sequence #'s 13 & 14 are selected. So, 11 & 12 are left-out. All the flights that are shown to the user are highlighted in bold.
+
+For the exercise, we will be using the above flight information as input and the automated test scripts would be looking for selected flights with sequence # [5, 6, 7] & [13, 14] as output. The user search criteria would also be the same as above.
+
+As for the implementation goes, there are only two classes: FlightFinder & Flight. Below is the template of FlightFinder, which is provided with the exercise. The variable 'allFlights' is a Map and it represents all the flights in the system and is initialized via constructor. Key for 'allFlights' is departure city name while value is list of flights departing from that city. You will be implementing the findFlights method. Input parameters mainly represent user search criteria and are self-explanatory and below is how the method would be invoked. The method would return the selected flights sorted by arrival times. More specifically the output is a List containing two elements each of which is a Set. First Set would contain flights from first leg (e.g., San Francisco --> Dubai in our example) and second Set would be connecting flights (e.g., Dubai --> Mumbai). Since the Set elements should be sorted by arrival time, a NavigableSet is used (which a TreeSet implements). The template includes some code and some comments that should help you in implementing the remaining part. main() method in FlightFinder includes some sample data for initializing 'allFlights'. Sample data includes the flight details corresponding to first four sequence numbers above and you can create the remaining from the above data. Flight class is also provided and you have to implement only the 'compareTo' method as Flight implements Comparable interface. So, we are using 'natural ordering' to sort the flights. All fields in Flight class are straight-forward and some of them are not really used, but do not delete any of them as they may be used in the automated scripts.
+
+findFlights(20, 12, 2017, 9, 13, "San Francisco", "Dubai", "Mumbai", "America/Los_Angeles", "Asia/Dubai");
