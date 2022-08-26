@@ -1,4 +1,6 @@
 Implementing Flight Booking Feature ~ Putting new Date & Time API into practice!
+
+
 Let's assume that we have the task of implementing 'Flight Booking' feature for a fictitious Website called 'eazyfly'. For this exercise, let's assume the goal is to implement one-way search of flights between two places (cities in two countries) given the date of travel. User is also allowed to specify a time interval (e.g., 9 AM - 1 PM) within which the flights should depart. Let's also assume that there would be one connecting flight. 
 
 Let's look at an example to get a better understanding of the problem. Let's say user wants to travel from San Francisco (USA) to Mumbai (India) via a connecting flight in Dubai on December 20th, 2017 and wants the system to show only flights departing in San Francisco between 9 AM and 1 PM. Let's say we have a total of following 15 flights available in the system on December 20th, 2017. For the sake of simplicity, let's assume departure time & arrival time are same including dates (can be possible due to different time zones)
